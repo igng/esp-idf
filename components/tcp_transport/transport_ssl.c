@@ -215,6 +215,23 @@ void esp_transport_ssl_set_client_key_data(esp_transport_handle_t t, const char 
     }
 }
 
+void esp_transport_ssl_set_client_key_data_der(esp_transport_handle_t t, const char *data, int len)
+{
+    transport_ssl_t *ssl = esp_transport_get_context_data(t);
+    if (t && ssl) {
+        ssl->cfg.clientkey_buf = (void *)data;
+        ssl->cfg.clientkey_bytes = len;
+    }
+}
+
+void esp_transport_ssl_set_alpn_protocol(esp_transport_handle_t t, const char **alpn_protos)
+{
+    transport_ssl_t *ssl = esp_transport_get_context_data(t);
+    if (t && ssl) {
+        ssl->cfg.alpn_protos = alpn_protos;
+    }
+}
+
 void esp_transport_ssl_skip_common_name_check(esp_transport_handle_t t)
 {
     transport_ssl_t *ssl = esp_transport_get_context_data(t);
